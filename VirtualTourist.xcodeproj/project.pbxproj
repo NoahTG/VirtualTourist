@@ -17,6 +17,7 @@
 		77EFA999236F7B34008A214B /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA998236F7B34008A214B /* Pin.swift */; };
 		77EFA99E236FA1F3008A214B /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA99D236FA1F3008A214B /* TravelLocationsMapViewController.swift */; };
 		77EFA9A0236FA208008A214B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA99F236FA208008A214B /* DataController.swift */; };
+		77EFA9A323714750008A214B /* virtual-tourist-app-icons in Resources */ = {isa = PBXBuildFile; fileRef = 77EFA9A22371474F008A214B /* virtual-tourist-app-icons */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		77EFA99D236FA1F3008A214B /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
 		77EFA99F236FA208008A214B /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		77EFA9A1236FACC3008A214B /* TextKeyConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TextKeyConfig.xcconfig; sourceTree = "<group>"; };
+		77EFA9A22371474F008A214B /* virtual-tourist-app-icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "virtual-tourist-app-icons"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				77826C5E236F731A0063619D /* Assets.xcassets */,
+				77EFA9A22371474F008A214B /* virtual-tourist-app-icons */,
 				77826C63236F731A0063619D /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
@@ -181,6 +184,7 @@
 			files = (
 				77826C65236F731A0063619D /* LaunchScreen.storyboard in Resources */,
 				77826C62236F731A0063619D /* Preview Assets.xcassets in Resources */,
+				77EFA9A323714750008A214B /* virtual-tourist-app-icons in Resources */,
 				77826C5F236F731A0063619D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
