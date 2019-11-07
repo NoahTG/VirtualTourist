@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import MapKit
+import CoreData
+import UIKit
 
-
-class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
+class PhotoAlbumViewController: UIViewController {
     
     //MARK: Properties
             
       // add property to hold data from persistence store
       var dataController:DataController!
     
-      var pin:Pin!
+      var phoo:Photo!
     
-      var annotations = [MKPointAnnotation]()
+     
 
        override func viewDidLoad() {
-        
              super.viewDidLoad()
       }
     
