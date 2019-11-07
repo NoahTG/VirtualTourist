@@ -20,6 +20,7 @@
 		77EFA9A323714750008A214B /* virtual-tourist-app-icons in Resources */ = {isa = PBXBuildFile; fileRef = 77EFA9A22371474F008A214B /* virtual-tourist-app-icons */; };
 		77EFA9A52372A3B8008A214B /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA9A42372A3B8008A214B /* AlertExtension.swift */; };
 		77EFA9A72372A85F008A214B /* Photo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA9A62372A85F008A214B /* Photo+Extensions.swift */; };
+		77EFA9A92373FE49008A214B /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFA9A82373FE49008A214B /* PhotoAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		77EFA9A22371474F008A214B /* virtual-tourist-app-icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "virtual-tourist-app-icons"; sourceTree = "<group>"; };
 		77EFA9A42372A3B8008A214B /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlertExtension.swift; path = VirtualTourist/AlertExtension.swift; sourceTree = "<group>"; };
 		77EFA9A62372A85F008A214B /* Photo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Extensions.swift"; sourceTree = "<group>"; };
+		77EFA9A82373FE49008A214B /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				77EFA99D236FA1F3008A214B /* TravelLocationsMapViewController.swift */,
+				77EFA9A82373FE49008A214B /* PhotoAlbumViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				77EFA99E236FA1F3008A214B /* TravelLocationsMapViewController.swift in Sources */,
 				77EFA999236F7B34008A214B /* Pin+Extensions.swift in Sources */,
 				77826C56236F73130063619D /* AppDelegate.swift in Sources */,
+				77EFA9A92373FE49008A214B /* PhotoAlbumViewController.swift in Sources */,
 				77826C58236F73130063619D /* SceneDelegate.swift in Sources */,
 				77EFA9A52372A3B8008A214B /* AlertExtension.swift in Sources */,
 				77EFA9A0236FA208008A214B /* DataController.swift in Sources */,
