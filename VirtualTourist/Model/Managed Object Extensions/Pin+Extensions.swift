@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import CoreData
+import MapKit
 
 
-extension Pin {
+extension Pin: MKAnnotation  {
     
     //called on initial object creation
     public override func awakeFromInsert() {
@@ -18,4 +18,19 @@ extension Pin {
         self.creationDate = Date()
     
         }
+    
+    public var coordinate : CLLocationCoordinate2D{
+        set{
+            latitude = newValue.latitude
+            longitude = newValue.longitude
+        }
+        get{
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
+    func compare(to cordinates: CLLocationCoordinate2D) -> Bool {
+        return (latitude == cordinates.latitude && longitude == cordinates.longitude)
+    }
+    
+    
 }
