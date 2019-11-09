@@ -21,7 +21,7 @@ extension UIViewController {
                                         style: .default,
                                         handler: nil))
         DispatchQueue.main.async {
-            self.show(alertVC, sender: nil)
+            self.present(alertVC, animated: true, completion: nil)
         }
     }
     
