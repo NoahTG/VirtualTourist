@@ -13,7 +13,7 @@ import UIKit
 
 class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
-    ///MARK: Properties
+    //MARK: Properties
             
       // add property to hold data from persistence store
       var dataController:DataController!
