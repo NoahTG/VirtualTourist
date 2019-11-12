@@ -8,95 +8,109 @@
 
 import Foundation
 
+struct APIClient: APIClientProtocol {
+    
+    // MARK: Properties
+    
+    var session: URLSession
+    
+    // MARK: Initializers
+    
+    init(session: URLSession) {
+        self.session = session
+    }
+    
+    // MARK: Imperatives
+        
+    func createGETDataTask(
+         withURL resourceURL: URL,
+              parameters: [String : String],
+              headers: [String: String]?,
+              andCompletionHandler handler: @escaping (APIClientProtocol.JsonData?, URLSessionTask.TaskError?) -> Void
+              ) -> URLSessionDataTask {
+        
+        
+        var components = URLComponents(url: resourceURL, resolvingAgainstBaseURL: false)!
+        components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
 
+               var request = URLRequest(url: components.url!)
+               request.httpMethod = "GET"
+               if let headers = headers {
+                   headers.forEach { key, value in
+                       request.addValue(value, forHTTPHeaderField: key)
+                   }
+               } else {
+                   // The default headers for calling restful APIs.
+                   request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                   request.addValue("application/json", forHTTPHeaderField: "Accept")
+               }
 
-class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
-               
-               let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-                   guard let data = data else {
-                       DispatchQueue.main.async {
-                           completion(nil, error)
-                       }
+               return session.dataTask(with: request) { data, response, error in
+                   guard error == nil, let data = data else {
+                       handler(nil, .connection)
                        return
                    }
-                   let range = 5..<data.count
-                   let newData = data.subdata(in: range) /* subset response data! */
-                   
-                   do {
-                       let responseObject = try JSONDecoder().decode(ResponseType.self, from: newData)
-                       DispatchQueue.main.async {
-                           completion(responseObject, nil)
-                       }
+
+                   guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                       handler(nil, .serverResponse)
+                       return
                    }
-                   catch {
-                       do {
-                           let errorMessage = try JSONDecoder().decode(UdacityErrorMessages.self, from:newData)
-                           DispatchQueue.main.async {
-                               completion(nil, errorMessage)
-                           }
-                       }
-                       catch {
-                           DispatchQueue.main.async{
-                           completion(nil, error)
-                           }
-                       }
-                   }
+
+                   handler(data, nil)
                }
-           task.resume()
-           return task
            }
-
-
-
-
-
-
-
-
-
-import CoreData
-
-struct FlickrClient {
-    
-    // inject core data
-    var datacontroller: DataController!
-    
-
-    struct Photos: Decodable {
-        let photos: Photos
-        
-    }
-    
-    struct PhotoDetails: Decodable {
-        let photo: [Photo]
-        let page: Int
-        let pages: int
-        
-    }
-    
-    
-    // MARK: HELPER FUNCTIONS
-    
-    // create a URL from parameters
-    // SOURCE: used in The Movie Manager udacity sub-project (Section 5: Network Requests)
-    func clearFlickrResults() {
-        photoResults = []
-        photoURLs = []
-    }
-    
-    
-    
-    func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
-            var components = URLComponents()
-            components.scheme = FlickrConstants.FlickrAPI.APIScheme
-            components.host = FlickrConstants.FlickrAPI.APIHost
-            components.path = FlickrConstants.FlickrAPI.APIPath
-            return components.url!
-        }
-    
-    
-    
-    
-    
-    
 }
+
+extension URLSessionTask {
+
+    // Handle possible errors
+    enum TaskError: Error {
+        case connection
+        case serverResponse
+        case malformedJsonResponse
+        case unexpectedResource
+    }
+}
+
+// Generate a URL data task
+protocol APIClientProtocol {
+
+    // MARK: Types
+
+    // A Data json object waiting to be deserialized.
+    typealias JsonData = Data
+
+    // MARK: Properties
+
+    /// The session used by the APIClientProtocol adopter to create the data tasks.
+    var session: URLSession { get }
+
+    // MARK: Initializers
+
+    init(session: URLSession)
+
+    // MARK: Imperatives
+
+    /// Creates and configures a data task for a GET HTTP method with the passed parameters.
+    /// - Parameters:
+    ///     - resourceUrl: the url of the desired resource.
+    ///     - parameters: the parameters to be passed with the request.
+    ///     - headers: the headers to be sent with the request.
+    ///     - completionHandler: the completion handler called when the task finishes, with an error or the data.
+    /// - Returns: the configured and not resumed data task.
+    func createGETDataTask(
+        withURL resourceURL: URL,
+        parameters: [String: String],
+        headers: [String: String]?,
+        andCompletionHandler handler: @escaping (JsonData?, URLSessionTask.TaskError?) -> Void
+    ) -> URLSessionDataTask
+}
+
+
+
+
+
+
+
+
+
