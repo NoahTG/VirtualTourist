@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77256B4F237A79DB001771F8 /* Fllickr+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B4E237A79DB001771F8 /* Fllickr+Constants.swift */; };
 		77826C56236F73130063619D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77826C55236F73130063619D /* AppDelegate.swift */; };
 		77826C58236F73130063619D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77826C57236F73130063619D /* SceneDelegate.swift */; };
 		77826C5B236F73130063619D /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77826C59236F73130063619D /* VirtualTourist.xcdatamodeld */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77256B4E237A79DB001771F8 /* Fllickr+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fllickr+Constants.swift"; sourceTree = "<group>"; };
 		77826C52236F73130063619D /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77826C55236F73130063619D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77826C57236F73130063619D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77256B50237A7C85001771F8 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				77256B4E237A79DB001771F8 /* Fllickr+Constants.swift */,
+			);
+			path = Flickr;
+			sourceTree = "<group>";
+		};
 		77826C49236F73130063619D = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +108,7 @@
 		77EFA997236F7A04008A214B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				77256B50237A7C85001771F8 /* Flickr */,
 				77826C59236F73130063619D /* VirtualTourist.xcdatamodeld */,
 				77EFA99F236FA208008A214B /* DataController.swift */,
 				77EFA99A236FA0D3008A214B /* Managed Object Extensions */,
@@ -214,6 +225,7 @@
 				77EFA9A0236FA208008A214B /* DataController.swift in Sources */,
 				77EFA9A72372A85F008A214B /* Photo+Extensions.swift in Sources */,
 				77826C5D236F73130063619D /* ContentView.swift in Sources */,
+				77256B4F237A79DB001771F8 /* Fllickr+Constants.swift in Sources */,
 				77826C5B236F73130063619D /* VirtualTourist.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,6 +366,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VirtualTourist/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -373,6 +386,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VirtualTourist/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

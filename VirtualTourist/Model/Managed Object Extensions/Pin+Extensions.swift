@@ -18,7 +18,7 @@ extension Pin: MKAnnotation  {
         self.creationDate = Date()
     
         }
-    
+    // set coordin
     public var coordinate : CLLocationCoordinate2D{
         set{
             latitude = newValue.latitude

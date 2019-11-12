@@ -27,6 +27,4 @@ class TravelLocationsMapViewController: UIViewController, MKMapViewDelegate {
              super.viewDidLoad()
       }
     
-    
-    
 }
