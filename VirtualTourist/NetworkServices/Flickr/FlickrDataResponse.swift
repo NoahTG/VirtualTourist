@@ -11,73 +11,49 @@ import Foundation
 
 extension FlickrClient {
 
-    struct Photos: Decodable {
-        let photos: Photos
+    // Response from Flickr photo search API.
+    struct FlickrResponse: Codable {
+        let searchResults: FlickrPhotoResults
+        let status: String
     
+        
+        enum CodingKeys: String, CodingKey {
+            case searchResults = "photos"
+            case status = "status"
+        }
     }
 
-    struct PhotoDetails: Decodable {
-        let photo: [Photo]
+    // Pagination data from Flickr API photos search
+    struct FlickrPhotoResults: Codable {
+        let photos: [FlickrPhoto]
         let page: Int
-        let pages: int
+        let pages: Int
+        let photosPerPage: Int
+        
+        enum codingKeys: String, CodingKey {
+            case page
+            case pages
+            case photosPerPage = "perpage"
+            case photos = "photo"
+            
+        }
+    }
+
+    // Image Data from Flickr API
+    struct FlickrPhoto: Codable {
+        let id: String
+        let title: String
+        let mediumURL: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case title
+            case mediumURL = "url_m"
+        }
         
     }
 
-    struct Photo: Decodable {
-           //    Variables needed:
-           //    Farm ID = “farm”
-           //    Server ID = “server”
-           //    ID = “id”
-           //    Secret = “secret”
-           let farm: Int
-           let server: String
-           let id: String
-           let secret: String
-           let url_m: String
-       }
 
 
-
-
-// The response data returned from the flickr API.
-struct FlickrSearchResponseData: Codable {
-    let data: FlickrSarchData
-    let status: String
-
-    enum CodingKeys: String, CodingKey {
-        case data = "photos"
-        case status = "stat"
-    }
-}
-
-/// The search response data returned from the flickr API.
-struct FlickrSarchData: Codable {
-    let page: Int
-    let pages: Int
-    let perPage: Int
-    let photos: [FlickrImage]
-
-    enum CodingKeys: String, CodingKey {
-        case page
-        case pages
-
-        case perPage = "perpage"
-        case photos = "photo"
-    }
-}
-
-/// The image data returned from the flickr api.
-struct FlickrImage: Codable {
-    let id: String
-    let title: String
-    let mediumUrl: String
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-
-        case mediumUrl = "url_m"
-    }
-}
 
 }
