@@ -22,12 +22,12 @@ class FlickrClient: NSObject {
     // MARK: HELPER FUNCTIONS
     
     // create a URL from parameters
-    // SOURCE: used in The Movie Manager udacity sub-project (Section 5: Network Requests)
-    func clearFlickrResults() {
-        photoResults = []
-        photoURLs = []
-    }
-    
+//    // SOURCE: used in The Movie Manager udacity sub-project (Section 5: Network Requests)
+//    func clearFlickrResults() {
+//        photoResults = []
+//        photoURLs = []
+//    }
+//    
     
     
     func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
