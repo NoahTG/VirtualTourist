@@ -1,5 +1,5 @@
 //
-//  FlickrTBD.swift
+//  FlickrClient.swift
 //  VirtualTourist
 //
 //  Created by NTG on 11/11/19.
@@ -13,24 +13,11 @@ import Foundation
 
 import CoreData
 
-struct FlickrClient {
+class FlickrClient: NSObject {
     
     // inject core data
     var datacontroller: DataController!
-    
 
-    struct Photos: Decodable {
-        let photos: Photos
-        
-    }
-    
-    struct PhotoDetails: Decodable {
-        let photo: [Photo]
-        let page: Int
-        let pages: int
-        
-    }
-    
     
     // MARK: HELPER FUNCTIONS
     

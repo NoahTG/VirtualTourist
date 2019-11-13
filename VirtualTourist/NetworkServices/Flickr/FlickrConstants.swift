@@ -1,5 +1,5 @@
 //
-//  FllickrConstants.swift
+//  FlickrConstants.swift
 //  VirtualTourist
 //
 //  Created by NTG on 11/11/19.
