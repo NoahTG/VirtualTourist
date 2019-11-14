@@ -10,32 +10,52 @@ import Foundation
 import UIKit
 import CoreData
 
-class FlickrClient: NSObject {
+class FlickrClient: FlickrClientProtocol {
     
-    // inject core data
+    // MARK: Properties
+    
+    
+      // inject core data
     var datacontroller: DataController!
 
+    let apiClient: APIClientProtocol
     
-    // MARK: HELPER FUNCTIONS
+    // Flicker API key
+    private let flickrAPIKey: String
     
-    // create a URL from parameters
-//    // SOURCE: used in The Movie Manager udacity sub-project (Section 5: Network Requests)
-//    func clearFlickrResults() {
-//        photoResults = []
-//        photoURLs = []
-//    }
-//    
+    private static let jsonDecoder = JSONDecoder()
     
     
-//    func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
-//            var components = URLComponents()
-//            components.scheme = FlickrConstants.FlickrAPI.APIScheme
-//            components.host = FlickrConstants.FlickrAPI.APIHost
-//            components.path = FlickrConstants.FlickrAPI.APIPath
-//            return components.url!
-//        }
-//
+    // Create baseURL for Flickr requests
+       private lazy var baseURL: URL = {
+           var components = URLComponents()
+           components.scheme = FlickrAPI.APIScheme
+           components.host = FlickrAPI.APIHost
+           components.path = FlickrAPI.APIPath
+           return components.url!
+       }()
     
+    
+    // MARK: Initializers
+
+    private init(){}
+
+
+    
+    // TODO -------
+    
+    
+    func getFlickrPhotosForPin(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (Pin?, Int?, Error?) -> Void) {
+        <#code#>
+    }
+    
+    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
+        <#code#>
+    }
+    
+  
+        
+
     
     
     

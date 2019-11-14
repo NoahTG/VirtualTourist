@@ -58,7 +58,7 @@ struct APIClient: APIClientProtocol {
                }
 
                completionHandler(data, nil)
-           }
+               }
            }
 }
 

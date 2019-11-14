@@ -10,13 +10,13 @@ import Foundation
 
 extension FlickrClient {
         
-        struct FlickrAPI {
+        enum FlickrAPI {
                 static let APIScheme = "https"
                 static let APIHost = "api.flickr.com"
                 static let APIPath = "/services/rest"
             }
         
-        struct FlickrKeys {
+        enum FlickrKeys {
             static let Method = "method"
             static let APIKey = "api_key"
             static let Latitude = "lat"
@@ -27,7 +27,7 @@ extension FlickrClient {
             static let NoJSONCallback = "nojsoncallback"
         }
         
-        struct FlickrValues {
+        enum FlickrValues {
             static let SearchMethod = "flickr.photos.search"
             static let APIKey = "a4b05476985821daf2c794037c702ac8"
             static let ResponseRadius = "1" // 1 mile radius
