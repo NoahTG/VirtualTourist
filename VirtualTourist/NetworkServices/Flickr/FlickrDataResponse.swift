@@ -9,8 +9,6 @@
 import Foundation
 
 
-extension FlickrClient {
-
     // Response from Flickr photo search API.
     struct FlickrResponse: Codable {
         let searchResults: FlickrPhotoResults
@@ -56,4 +54,4 @@ extension FlickrClient {
 
 
 
-}
+
