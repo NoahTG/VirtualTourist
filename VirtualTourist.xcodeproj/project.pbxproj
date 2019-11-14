@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77256B4F237A79DB001771F8 /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B4E237A79DB001771F8 /* FlickrConstants.swift */; };
+		77256B4F237A79DB001771F8 /* FlickrClient+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B4E237A79DB001771F8 /* FlickrClient+Constants.swift */; };
 		77256B52237A7FDD001771F8 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B51237A7FDD001771F8 /* APIClient.swift */; };
 		77256B54237A8AB3001771F8 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B53237A8AB3001771F8 /* FlickrClient.swift */; };
 		77826C56236F73130063619D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77826C55236F73130063619D /* AppDelegate.swift */; };
@@ -28,7 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		77256B4E237A79DB001771F8 /* FlickrConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
+		77256B4E237A79DB001771F8 /* FlickrClient+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlickrClient+Constants.swift"; sourceTree = "<group>"; };
 		77256B51237A7FDD001771F8 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		77256B53237A8AB3001771F8 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		77826C52236F73130063619D /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				77256B53237A8AB3001771F8 /* FlickrClient.swift */,
-				77256B4E237A79DB001771F8 /* FlickrConstants.swift */,
+				77256B4E237A79DB001771F8 /* FlickrClient+Constants.swift */,
 				77E32E30237BE41C001F26F2 /* FlickrDataResponse.swift */,
 			);
 			path = Flickr;
@@ -244,7 +244,7 @@
 				77826C5D236F73130063619D /* ContentView.swift in Sources */,
 				77E32E31237BE41C001F26F2 /* FlickrDataResponse.swift in Sources */,
 				77256B54237A8AB3001771F8 /* FlickrClient.swift in Sources */,
-				77256B4F237A79DB001771F8 /* FlickrConstants.swift in Sources */,
+				77256B4F237A79DB001771F8 /* FlickrClient+Constants.swift in Sources */,
 				77826C5B236F73130063619D /* VirtualTourist.xcdatamodeld in Sources */,
 				77256B52237A7FDD001771F8 /* APIClient.swift in Sources */,
 			);

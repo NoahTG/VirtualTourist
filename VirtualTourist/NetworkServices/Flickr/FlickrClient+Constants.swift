@@ -1,5 +1,5 @@
 //
-//  FlickrConstants.swift
+//  FlickrClient+Constants.swift
 //  VirtualTourist
 //
 //  Created by NTG on 11/11/19.
@@ -10,10 +10,8 @@ import Foundation
 
 
 extension FlickrClient {
-
-    struct FlickrConstants {
         
-         struct FlickrAPI {
+        struct FlickrAPI {
                 static let APIScheme = "https"
                 static let APIHost = "api.flickr.com"
                 static let APIPath = "/services/rest"
@@ -39,6 +37,6 @@ extension FlickrClient {
             static let DisableJSONCallback = "1" // 1 means "yes"
             static let galleryPhotosMethod = "flickr.galleries.getphotos"
         }
-    }
+    
 
 }
