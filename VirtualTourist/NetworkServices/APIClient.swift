@@ -26,14 +26,13 @@ struct APIClient: APIClientProtocol {
          withURL resourceURL: URL,
               parameters: [String : String],
               headers: [String: String]?,
-              completionHandler: @escaping (APIClientProtocol.JsonData?, URLSessionTask.TaskError?) -> Void) -> URLSessionDataTask {
+              completionHandler: @escaping (APIClientProtocol.JsonData?, URLSessionTask.TaskHasError?) -> Void) -> URLSessionDataTask {
         
+                var urlComponents = URLComponents(url: resourceURL, resolvingAgainstBaseURL: false)!
         
-        var components = URLComponents(url: resourceURL, resolvingAgainstBaseURL: false)!
-            
-        components.queryItem = parameters.map { URLQueryItem(name: $0, value: $1) }
-
-           var request = URLRequest(url: components.url!)
+                urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        
+            var request = URLRequest(url: urlComponents.url!)
            
             request.httpMethod = "GET"
            
@@ -49,16 +48,16 @@ struct APIClient: APIClientProtocol {
 
            return session.dataTask(with: request) { data, response, error in
                guard error == nil, let data = data else {
-                   handler(nil, .connection)
+                   completionHandler(nil, .connection)
                    return
                }
 
                guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                   handler(nil, .serverResponse)
+                   completionHandler(nil, .serverResponse)
                    return
                }
 
-               handler(data, nil)
+               completionHandler(data, nil)
            }
            }
 }
@@ -66,7 +65,7 @@ struct APIClient: APIClientProtocol {
 extension URLSessionTask {
 
     // Handle possible errors
-    enum TaskError: Error {
+    enum TaskHasError: Error {
         case connection
         case serverResponse
         case malformedJsonResponse
@@ -74,7 +73,7 @@ extension URLSessionTask {
     }
 }
 
-// Generate a URL data task
+// Protocol to generate a URL data task
 protocol APIClientProtocol {
 
     // MARK: Types
@@ -104,7 +103,7 @@ protocol APIClientProtocol {
         withURL resourceURL: URL,
         parameters: [String: String],
         headers: [String: String]?,
-        completionHandler: @escaping (JsonData?, URLSessionTask.TaskError?) -> Void)
+        completionHandler: @escaping (JsonData?, URLSessionTask.TaskHasError?) -> Void)
         -> URLSessionDataTask
 }
 
