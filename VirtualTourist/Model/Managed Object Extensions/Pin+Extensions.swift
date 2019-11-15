@@ -9,7 +9,6 @@
 import Foundation
 import MapKit
 
-
 extension Pin: MKAnnotation  {
     
     //called on initial object creation
@@ -18,7 +17,8 @@ extension Pin: MKAnnotation  {
         self.creationDate = Date()
     
         }
-    // set coordin
+        
+    // set coordinates
     public var coordinate : CLLocationCoordinate2D{
         set{
             latitude = newValue.latitude

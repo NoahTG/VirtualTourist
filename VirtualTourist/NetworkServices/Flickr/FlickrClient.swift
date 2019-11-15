@@ -25,9 +25,6 @@ class FlickrClient: FlickrClientProtocol {
     // Flicker API key
     private let flickrAPIKey: String
     
-    private static let jsonDecoder = JSONDecoder()
-    
-    
     // Create baseURL for Flickr requests
        private lazy var baseURL: URL = {
            var components = URLComponents()
@@ -62,73 +59,41 @@ class FlickrClient: FlickrClientProtocol {
     
     
     func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
-        let queryParms = [
-            FlickrKeys.APIKey: FlickrValues.APIKey,
-            FlickrKeys.Format: FlickrValues.ResponseFormat,
-            FlickrKeys.NoJsonCallback: FlickrValues.NoJsonCallback,
+        var queryParameters = [
+            FlickrKeys.APIKey: FlickrDefaultValues.APIKey,
+            FlickrKeys.Format: FlickrDefaultValues.ResponseFormat,
+            FlickrKeys.NoJsonCallback: FlickrDefaultValues.NoJsonCallback,
             FlickrKeys.Method: FlickrMethods.PhotoSearchMethod,
-            FlickrKeys.Radius: FlickrValues.ResponseRadius,
-            FlickrKeys.ResultsPerPage: FlickrValues.ResponseResultsPerPage,
+            FlickrKeys.Radius: FlickrDefaultValues.ResponseRadius,
+            FlickrKeys.ResultsPerPage: FlickrDefaultValues.ResponseResultsPerPage,
             FlickrKeys.Latitude: String(pin.latitude),
             FlickrKeys.Longitude: String(pin.longitude)
         ]
-        
-        
-        
-        
-        
-           enum FlickrKeys {
-               static let Method = "method"
-               static let APIKey = "api_key"
-               static let Latitude = "lat"
-               static let Longitude = "lon"
-               static let Radius = "radius"
-               static let ResultsPerPage = "per_page"
-               static let Format = "format"
-               static let NoJsonCallback = "nojsoncallback"
-           }
-           
-           enum FlickrDefaultValues {
-               static let SearchMethod = "flickr.photos.search"
-               static let APIKey = "a4b05476985821daf2c794037c702ac8"
-               static let ResponseRadius = "1" // 1 mile radius
-               static let ResponseFormat = "json"
-               static let ResponseResultsPerPage = "100"
-               static let NoJsonCallback = "1" // 1 means "yes"
-               static let galleryPhotosMethod = "flickr.galleries.getphotos"
-           }
-        
-        
-        
-        
 
-        let dataTask = FlickrClient.sharedInstance.
+        if let locationName = pin.placeName {
+            queryParameters[FlickrKeys.Text] = locationName
+        } else {
+            queryParameters[FlickrKeys.BoundingBox] =
+            "\(pin.longitude - 0.1), \(pin.latitude - 0.1), \(pin.longitude + 0.1), \(pin.latitude + 0.1)"
+        }
         
-        (withUrl: baseURL, queryParms: queryParms, headers: nil) { (data, error) in
-
-            guard let data = data, error == nil else {
-                completionHandler(nil, error)
+        let dataTask = FlickrClient.sharedInstance.apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { data, error
+            in
+            guard error == nil, let data = data else {
+                completionHandler (nil, error!)
                 return
             }
-
-            let jsonDecoder = JSONDecoder()
-
-            do {
-                let flickrResponse = try jsonDecoder.decode(FlickrResponse.self, from: data)
-                completionHandler(flickrResponse, nil)
-            } catch {
-                do {
-                    let flickrError = try jsonDecoder.decode(FlickrErrorResponse.self, from: data)
-                    completionHandler(nil, flickrError)
-                } catch {
-                    completionHandler(nil, error)
-                }
-            }
             
-        }
-        dataTask.resume()
-    }
-    
+            let decoder = JSONDecoder()
+            do {
+                let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
+                completionHandler(flickrGETResponse, nil)
+            } catch {
+                completionHandler(nil, .malformedJsonResponse)
+                    }
+                }
+                dataTask.resume()
+            }
     
     
     

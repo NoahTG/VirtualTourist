@@ -28,6 +28,8 @@ extension FlickrClient {
             static let Latitude = "lat"
             static let Longitude = "lon"
             static let Radius = "radius"
+            static let Text = "text"
+            static let BoundingBox = "bbox"
             static let ResultsPerPage = "per_page"
             static let Format = "format"
             static let NoJsonCallback = "nojsoncallback"
