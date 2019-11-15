@@ -20,6 +20,8 @@ class FlickrClient: FlickrClientProtocol {
 
     let apiClient: APIClientProtocol
     
+    static let sharedInstance = FlickrClient()
+    
     // Flicker API key
     private let flickrAPIKey: String
     
@@ -40,22 +42,67 @@ class FlickrClient: FlickrClientProtocol {
 
     private init(){}
 
-
+    // MARK: Imperatives
     
     // TODO -------
-    
-    
     func getFlickrPhotosForPin(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (Pin?, Int?, Error?) -> Void) {
-        <#code#>
+        
+        let pinId = pin.objectID
+        
+        requestImages(completionHandler)
     }
     
     func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
-        <#code#>
+        
     }
     
   
         
+    // MARK: Helper Functions
+    
+    
+    func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
+        let queryParms = [
+            FlickrKeys.APIKey: FlickrValues.APIKey,
+            FlickrKeys.Format: FlickrValues.ResponseFormat,
+            FlickrKeys.NoJsonCallback: FlickrValues.NoJsonCallback,
+            FlickrKeys.Method: FlickrValues.PhotosSearch,
+            FlickrKeys.Extra: FlickrValues.ExtraMediumURL,
+            FlickrKeys.Page: String(page),
+            FlickrKeys.RadiusUnits: FlickrValues.RadiusUnits,
+            FlickrKeys.Radius: FlickrValues.Radius,
+            FlickrKeys.ResultsPerPage: FlickrValues.ResultsPerPage,
+            FlickrKeys.Sort: FlickrValues.Sort,
+            FlickrKeys.Latitude: String(pin.latitude),
+            FlickrKeys.Longitude: String(pin.longitude)
+        ]
 
+        let dataTask = FlickrClient.sharedInstance.
+        
+        (withUrl: baseURL, queryParms: queryParms, headers: nil) { (data, error) in
+
+            guard let data = data, error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                let flickrResponse = try jsonDecoder.decode(FlickrResponse.self, from: data)
+                completionHandler(flickrResponse, nil)
+            } catch {
+                do {
+                    let flickrError = try jsonDecoder.decode(FlickrErrorResponse.self, from: data)
+                    completionHandler(nil, flickrError)
+                } catch {
+                    completionHandler(nil, error)
+                }
+            }
+            
+        }
+        dataTask.resume()
+    }
     
     
     

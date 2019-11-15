@@ -15,6 +15,11 @@ extension FlickrClient {
                 static let APIHost = "api.flickr.com"
                 static let APIPath = "/services/rest"
             }
+    
+        enum FlickrMethods {
+            static let PhotosSearch = "flickr.photos.search"
+        }
+
         
         enum FlickrKeys {
             static let Method = "method"
@@ -33,7 +38,7 @@ extension FlickrClient {
             static let ResponseRadius = "1" // 1 mile radius
             static let ResponseFormat = "json"
             static let ResponseResultsPerPage = "100"
-            static let DisableJSONCallback = "1" // 1 means "yes"
+            static let NoJSONCallback = "1" // 1 means "yes"
             static let galleryPhotosMethod = "flickr.galleries.getphotos"
         }
     
