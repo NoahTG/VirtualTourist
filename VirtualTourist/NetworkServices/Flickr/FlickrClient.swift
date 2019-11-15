@@ -64,8 +64,8 @@ class FlickrClient: FlickrClientProtocol {
     func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
         let queryParms = [
             FlickrKeys.APIKey: FlickrValues.APIKey,
-            FlickrKeys.Format: FlickrValues.ResponseFormat,
-            FlickrKeys.NoJsonCallback: FlickrValues.NoJsonCallback,
+            FlickrKeys.format: FlickrValues.ResponseFormat,
+            FlickrKeys.NoJsonCallback: FlickrValues.NoJSONCallback,
             FlickrKeys.Method: FlickrValues.PhotosSearch,
             FlickrKeys.Extra: FlickrValues.ExtraMediumURL,
             FlickrKeys.Page: String(page),

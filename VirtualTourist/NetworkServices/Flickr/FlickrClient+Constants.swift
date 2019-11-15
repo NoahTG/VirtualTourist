@@ -28,7 +28,7 @@ extension FlickrClient {
             static let Longitude = "lon"
             static let Radius = "radius"
             static let ResultsPerPage = "per_page"
-            static let format = "format"
+            static let Format = "format"
             static let NoJSONCallback = "nojsoncallback"
         }
         
