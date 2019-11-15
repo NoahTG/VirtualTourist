@@ -17,7 +17,8 @@ extension FlickrClient {
             }
     
         enum FlickrMethods {
-            static let PhotosSearch = "flickr.photos.search"
+            static let PhotoSearchMethod = "flickr.photos.search"
+            static let galleryPhotosMethod = "flickr.galleries.getphotos"
         }
 
         
@@ -29,17 +30,15 @@ extension FlickrClient {
             static let Radius = "radius"
             static let ResultsPerPage = "per_page"
             static let Format = "format"
-            static let NoJSONCallback = "nojsoncallback"
+            static let NoJsonCallback = "nojsoncallback"
         }
         
-        enum FlickrValues {
-            static let SearchMethod = "flickr.photos.search"
+        enum FlickrDefaultValues {
             static let APIKey = "a4b05476985821daf2c794037c702ac8"
             static let ResponseRadius = "1" // 1 mile radius
             static let ResponseFormat = "json"
             static let ResponseResultsPerPage = "100"
-            static let NoJSONCallback = "1" // 1 means "yes"
-            static let galleryPhotosMethod = "flickr.galleries.getphotos"
+            static let NoJsonCallback = "1" // 1 means "yes"
         }
     
 

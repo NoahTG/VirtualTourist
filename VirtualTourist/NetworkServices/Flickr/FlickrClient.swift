@@ -64,18 +64,43 @@ class FlickrClient: FlickrClientProtocol {
     func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
         let queryParms = [
             FlickrKeys.APIKey: FlickrValues.APIKey,
-            FlickrKeys.format: FlickrValues.ResponseFormat,
-            FlickrKeys.NoJsonCallback: FlickrValues.NoJSONCallback,
-            FlickrKeys.Method: FlickrValues.PhotosSearch,
-            FlickrKeys.Extra: FlickrValues.ExtraMediumURL,
-            FlickrKeys.Page: String(page),
-            FlickrKeys.RadiusUnits: FlickrValues.RadiusUnits,
-            FlickrKeys.Radius: FlickrValues.Radius,
-            FlickrKeys.ResultsPerPage: FlickrValues.ResultsPerPage,
-            FlickrKeys.Sort: FlickrValues.Sort,
+            FlickrKeys.Format: FlickrValues.ResponseFormat,
+            FlickrKeys.NoJsonCallback: FlickrValues.NoJsonCallback,
+            FlickrKeys.Method: FlickrMethods.PhotoSearchMethod,
+            FlickrKeys.Radius: FlickrValues.ResponseRadius,
+            FlickrKeys.ResultsPerPage: FlickrValues.ResponseResultsPerPage,
             FlickrKeys.Latitude: String(pin.latitude),
             FlickrKeys.Longitude: String(pin.longitude)
         ]
+        
+        
+        
+        
+        
+           enum FlickrKeys {
+               static let Method = "method"
+               static let APIKey = "api_key"
+               static let Latitude = "lat"
+               static let Longitude = "lon"
+               static let Radius = "radius"
+               static let ResultsPerPage = "per_page"
+               static let Format = "format"
+               static let NoJsonCallback = "nojsoncallback"
+           }
+           
+           enum FlickrDefaultValues {
+               static let SearchMethod = "flickr.photos.search"
+               static let APIKey = "a4b05476985821daf2c794037c702ac8"
+               static let ResponseRadius = "1" // 1 mile radius
+               static let ResponseFormat = "json"
+               static let ResponseResultsPerPage = "100"
+               static let NoJsonCallback = "1" // 1 means "yes"
+               static let galleryPhotosMethod = "flickr.galleries.getphotos"
+           }
+        
+        
+        
+        
 
         let dataTask = FlickrClient.sharedInstance.
         
