@@ -27,9 +27,7 @@ extension Pin  {
 
 struct PinPersistence: PinPersitenceProtocol {
 
-private init(){
-        
-    }
+private init(){}
 
     func createPin(
         usingContext context: NSManagedObjectContext,

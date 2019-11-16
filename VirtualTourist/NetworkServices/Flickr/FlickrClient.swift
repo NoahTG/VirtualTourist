@@ -119,11 +119,6 @@ class FlickrClient: FlickrClientProtocol {
             }
             dataTask.resume()
         }
-    
-    
-    
-
-
 
         static func bboxString(for cordinates: CLLocationCoordinate2D)-> String{
             let lat = cordinates.latitude
