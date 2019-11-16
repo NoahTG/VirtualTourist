@@ -25,6 +25,38 @@ extension Pin  {
     
 }
 
+struct PinPersistence: PinPersitenceProtocol {
+
+private init(){
+        
+    }
+
+    func createPin(
+        usingContext context: NSManagedObjectContext,
+        withLocation location: String?,
+        andCoordinate coordinate: CLLocationCoordinate2D
+    ) -> Pin {
+        let pin = Pin(context: context)
+
+        pin.locationName = location
+        pin.latitude = coordinate.latitude
+        pin.longitude = coordinate.longitude
+
+        return pin
+
+    }
+
+    func deletePin(pin: Pin, fromContext context: NSManagedObjectContext) {
+        context.delete(pin)
+
+        do {
+            try context.save()
+        } catch {
+            print("Cannot delete pin: \(error)")
+        }
+    }
+}
+
 
 
 protocol PinPersitenceProtocol {
@@ -39,7 +71,7 @@ protocol PinPersitenceProtocol {
     /// - Returns: the created pin object.
     func createPin(
         usingContext context: NSManagedObjectContext,
-        withLocatione location: String?,
+        withLocation location: String?,
         andCoordinate coordinate: CLLocationCoordinate2D
     ) -> Pin
     
@@ -49,3 +81,8 @@ protocol PinPersitenceProtocol {
     ///     - context: the NSManagedObjectContext responsible for the pin.
     func deletePin(pin: Pin, fromContext context: NSManagedObjectContext)
 }
+
+
+
+    
+
