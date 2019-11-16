@@ -12,6 +12,8 @@ import CoreData
 
 extension Photo {
     
+    // MARK: Life cycle
+
     //called on initial object creation
     public override func awakeFromInsert() {
         super.awakeFromInsert()

@@ -20,6 +20,8 @@ class FlickrClient: FlickrClientProtocol {
 
     let apiClient: APIClientProtocol
     
+    var AlbumPersist: 
+    
     static let sharedInstance = FlickrClient()
     
     // Flicker API key
@@ -59,7 +61,9 @@ class FlickrClient: FlickrClientProtocol {
                 guard let pinInBackgroundContext = NSManagedObjectContext.object(with: pinObjectId) as? Pin else {
                     preconditionFailure("Unable to fetch Pin in background context.")
                 }
-                
+                do {
+                    
+                }
             }
 
         }
