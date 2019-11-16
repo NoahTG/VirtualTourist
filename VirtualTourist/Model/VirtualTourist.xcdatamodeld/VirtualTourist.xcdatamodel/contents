@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="class">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="imageUrl" optional="YES" attributeType="URI"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="photos" inverseEntity="Pin"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
@@ -13,7 +21,8 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-552.6328125" positionY="-1626.30859375" width="128" height="88"/>
+        <element name="Photo" positionX="-552.6328125" positionY="-1626.30859375" width="128" height="148"/>
         <element name="Pin" positionX="-796.65234375" positionY="-1640.4765625" width="128" height="118"/>
+        <element name="Album" positionX="-675" positionY="-1575" width="128" height="73"/>
     </elements>
 </model>

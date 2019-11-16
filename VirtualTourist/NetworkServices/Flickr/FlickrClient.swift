@@ -15,8 +15,8 @@ class FlickrClient: FlickrClientProtocol {
     // MARK: Properties
     
     
-      // inject core data
-    var datacontroller: DataController!
+      // add property to hold data from persistaence store
+    var dataController: DataController
 
     let apiClient: APIClientProtocol
     
@@ -24,8 +24,8 @@ class FlickrClient: FlickrClientProtocol {
     
     // Flicker API key
     private let flickrAPIKey: String
-    
-    // Create baseURL for Flickr requests
+        
+    // Create baseURL for Flickr requests & lazy means code only runs when called
        private lazy var baseURL: URL = {
            var components = URLComponents()
            components.scheme = FlickrAPI.APIScheme
@@ -44,9 +44,10 @@ class FlickrClient: FlickrClientProtocol {
     // TODO -------
     func getFlickrPhotosForPin(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (Pin?, Int?, Error?) -> Void) {
         
-        let pinId = pin.objectID
+        let pinObjectId = pin.objectID
         
-        requestImages(forPin: pin, resultsForPage: page) { (data, error) in
+        requestFlickrImages(forPin: pin, resultsForPage: page) { (data, error) in
+            
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
                     completionHandler(nil, nil, error)
@@ -54,11 +55,18 @@ class FlickrClient: FlickrClientProtocol {
                 return
             }
             
-            let pinContext = self.datacontroller.viewContext.object(with: pinId) as! Pin
-            
-            
+            self.dataController.persistentContainer.performBackgroundTask { NSManagedObjectContext in
+                guard let pinInBackgroundContext = NSManagedObjectContext.object(with: pinObjectId) as? Pin else {
+                    preconditionFailure("Unable to fetch Pin in background context.")
+                }
+                
+            }
+
         }
     }
+    
+    //            let pinContext = self.dataController.viewContext.object(with: pinObjectId) as! Pin
+
     
     func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
      
@@ -71,33 +79,12 @@ class FlickrClient: FlickrClientProtocol {
             guard let data = data,
                 
         }
-        
-        //TODO
-              
-               }
-               
-//               let decoder = JSONDecoder()
-//               do {
-//                   let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
-//                   completionHandler(flickrGETResponse, nil)
-//               } catch {
-//                   completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
-//                       }
-//                   }
-//                   dataTask.resume()
-//
-//
-//
-//
-        
-    
-    
-  
-        
+    }
+
     // MARK: Helper Functions
     
     
-    func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
+    func requestFlickrImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
         let queryParameters = [
             FlickrKeys.APIKey: FlickrDefaultValues.APIKey,
             FlickrKeys.Format: FlickrDefaultValues.ResponseFormat,
@@ -112,43 +99,44 @@ class FlickrClient: FlickrClientProtocol {
         
         let dataTask = FlickrClient.sharedInstance.apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { (data, error)
             in
-            guard error == nil, let data = data else {
+            guard let data = data, error == nil else {
                 completionHandler (nil, error!)
                 return
             }
             
             let decoder = JSONDecoder()
+           
             do {
                 let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
                 completionHandler(flickrGETResponse, nil)
             } catch {
                 completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
-                    }
                 }
-                dataTask.resume()
             }
+            dataTask.resume()
+        }
     
     
     
+
+
+
+        static func bboxString(for cordinates: CLLocationCoordinate2D)-> String{
+            let lat = cordinates.latitude
+            let long = cordinates.longitude
+            
+            let minLat = max(lat - Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.0)
+            let maxLat = min(lat + Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.1)
+            let minLong = max(long - Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.0)
+            let maxLong = min(long + Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.1)
+            
+            return "\(minLong),\(minLat),\(maxLong),\(maxLat)"
+        }
+
+
+
+
 }
-
-
-static func bboxString(for cordinates: CLLocationCoordinate2D)-> String{
-    let lat = cordinates.latitude
-    let long = cordinates.longitude
-    
-    let minLat = max(lat - Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.0)
-    let maxLat = min(lat + Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.1)
-    let minLong = max(long - Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.0)
-    let maxLong = min(long + Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.1)
-    
-    return "\(minLong),\(minLat),\(maxLong),\(maxLat)"
-}
-
-
-
-
-
 
 
 
