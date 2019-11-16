@@ -72,25 +72,25 @@ class FlickrClient: FlickrClientProtocol {
                 
         }
         
-        
+        //TODO
               
                }
                
-               let decoder = JSONDecoder()
-               do {
-                   let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
-                   completionHandler(flickrGETResponse, nil)
-               } catch {
-                   completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
-                       }
-                   }
-                   dataTask.resume()
-               }
-       
-       
+//               let decoder = JSONDecoder()
+//               do {
+//                   let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
+//                   completionHandler(flickrGETResponse, nil)
+//               } catch {
+//                   completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
+//                       }
+//                   }
+//                   dataTask.resume()
+//
+//
+//
+//
         
-        
-    }
+    
     
   
         
