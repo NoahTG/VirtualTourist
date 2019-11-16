@@ -46,10 +46,49 @@ class FlickrClient: FlickrClientProtocol {
         
         let pinId = pin.objectID
         
-        requestImages(completionHandler)
+        requestImages(forPin: pin, resultsForPage: page) { (data, error) in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    completionHandler(nil, nil, error)
+                }
+                return
+            }
+            
+            let pinContext = self.datacontroller.viewContext.object(with: pinId) as! Pin
+            
+            
+        }
     }
     
     func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
+     
+        
+        let dataTask = apiClient.createGETDataTask(
+            withURL: url,
+            parameters: [:],
+            headers: [:]) { (data, error) in
+             
+            guard let data = data,
+                
+        }
+        
+        
+              
+               }
+               
+               let decoder = JSONDecoder()
+               do {
+                   let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
+                   completionHandler(flickrGETResponse, nil)
+               } catch {
+                   completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
+                       }
+                   }
+                   dataTask.resume()
+               }
+       
+       
+        
         
     }
     
@@ -59,7 +98,7 @@ class FlickrClient: FlickrClientProtocol {
     
     
     func requestImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
-        var queryParameters = [
+        let queryParameters = [
             FlickrKeys.APIKey: FlickrDefaultValues.APIKey,
             FlickrKeys.Format: FlickrDefaultValues.ResponseFormat,
             FlickrKeys.NoJsonCallback: FlickrDefaultValues.NoJsonCallback,
@@ -69,15 +108,9 @@ class FlickrClient: FlickrClientProtocol {
             FlickrKeys.Latitude: String(pin.latitude),
             FlickrKeys.Longitude: String(pin.longitude)
         ]
-
-        if let locationName = pin.placeName {
-            queryParameters[FlickrKeys.Text] = locationName
-        } else {
-            queryParameters[FlickrKeys.BoundingBox] =
-            "\(pin.longitude - 0.1), \(pin.latitude - 0.1), \(pin.longitude + 0.1), \(pin.latitude + 0.1)"
-        }
         
-        let dataTask = FlickrClient.sharedInstance.apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { data, error
+        
+        let dataTask = FlickrClient.sharedInstance.apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { (data, error)
             in
             guard error == nil, let data = data else {
                 completionHandler (nil, error!)
@@ -89,7 +122,7 @@ class FlickrClient: FlickrClientProtocol {
                 let flickrGETResponse = try decoder.decode(FlickrResponse.self, from: data)
                 completionHandler(flickrGETResponse, nil)
             } catch {
-                completionHandler(nil, .malformedJsonResponse)
+                completionHandler(nil, URLSessionTask.TaskHasError.malformedJsonResponse)
                     }
                 }
                 dataTask.resume()
@@ -98,6 +131,24 @@ class FlickrClient: FlickrClientProtocol {
     
     
 }
+
+
+static func bboxString(for cordinates: CLLocationCoordinate2D)-> String{
+    let lat = cordinates.latitude
+    let long = cordinates.longitude
+    
+    let minLat = max(lat - Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.0)
+    let maxLat = min(lat + Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.1)
+    let minLong = max(long - Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.0)
+    let maxLong = min(long + Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.1)
+    
+    return "\(minLong),\(minLat),\(maxLong),\(maxLat)"
+}
+
+
+
+
+
 
 
 

@@ -28,8 +28,9 @@ extension Pin: MKAnnotation  {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
     }
-    func compare(to cordinates: CLLocationCoordinate2D) -> Bool {
-        return (latitude == cordinates.latitude && longitude == cordinates.longitude)
+    
+    func compare(to coordinates: CLLocationCoordinate2D) -> Bool {
+        return (latitude == coordinates.latitude && longitude == coordinates.longitude)
     }
     
     
