@@ -13,15 +13,12 @@ import CoreData
 class FlickrClient: FlickrClientProtocol {
     
     // MARK: Properties
-    
     let apiClient: APIClientProtocol
-        
+            
     var dataController: DataController
     
     var albumPersist: AlbumPersistence
-    
-    static let sharedInstance = FlickrClient()
-    
+        
     // Flicker API key
     private let flickrAPIKey: String
         
@@ -37,11 +34,19 @@ class FlickrClient: FlickrClientProtocol {
     
     // MARK: Initializers
 
-    private init(){}
+    required init(apiClient: APIClientProtocol, albumPersist: AlbumPersistence, dataController: DataController) {
+         guard let flickrAPIKey = Bundle.main.object(forInfoDictionaryKey: "Flickr api key") as? String else {
+             preconditionFailure("The flickr API key is missing or incorrect.")
+         }
 
+         self.apiClient = apiClient
+         self.flickrAPIKey = flickrAPIKey
+         self.albumPersist = albumPersist
+         self.dataController = dataController
+     }
+    
     // MARK: Imperatives
     
-    // TODO -------
     func getFlickrPhotosForPin(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (Pin?, Int?, Error?) -> Void) {
         
         let pinObjectId = pin.objectID
@@ -72,33 +77,35 @@ class FlickrClient: FlickrClientProtocol {
                     completionHandler(nil, nil, error)
                 }
             }
-    
-            
-            func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
-     
-        
-                let dataTask = self.apiClient.createGETDataTask(
-                    withURL: url,
-                    parameters: [:],
-                    headers: [:]) { (data, error) in
-                     
-                        guard let data = data, error == nil else {
-                            completionHandler(nil, error)
-                            return
-                                
-                        }
-                        
-                        guard let image = UIImage(data: data) else {
-                            completionHandler(nil, .unexpectedResource)
-                            return
-                        }
-                        completionHandler(image, nil)
-                    }
-                dataTask.resume()
-            }
-        
         }
     }
+    
+            
+    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
+
+
+        let dataTask = self.apiClient.createGETDataTask(
+            withURL: url,
+            parameters: [:],
+            headers: [:]) { (data, error) in
+             
+                guard let data = data, error == nil else {
+                    completionHandler(nil, error)
+                    return
+                        
+                }
+                
+                guard let image = UIImage(data: data) else {
+                    completionHandler(nil, .unexpectedResource)
+                    return
+                }
+                completionHandler(image, nil)
+            }
+        dataTask.resume()
+    }
+
+
+
 
     // MARK: Helper Functions
     
@@ -116,7 +123,7 @@ class FlickrClient: FlickrClientProtocol {
         ]
         
         
-        let dataTask = FlickrClient.sharedInstance.apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { (data, error)
+        let dataTask = apiClient.createGETDataTask(withURL: baseURL, parameters: queryParameters, headers: nil) { (data, error)
             in
             guard let data = data, error == nil else {
                 completionHandler (nil, error!)
