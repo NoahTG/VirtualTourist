@@ -14,13 +14,11 @@ class FlickrClient: FlickrClientProtocol {
     
     // MARK: Properties
     
-    
-      // add property to hold data from persistaence store
-    var dataController: DataController
-
     let apiClient: APIClientProtocol
+        
+    var dataController: DataController
     
-    var AlbumPersist: AlbumPersistence
+    var albumPersist: AlbumPersistence
     
     static let sharedInstance = FlickrClient()
     
@@ -48,6 +46,7 @@ class FlickrClient: FlickrClientProtocol {
         
         let pinObjectId = pin.objectID
         
+    
         requestFlickrImages(forPin: pin, resultsForPage: page) { (data, error) in
             
             guard let data = data, error == nil else {
@@ -56,32 +55,48 @@ class FlickrClient: FlickrClientProtocol {
                 }
                 return
             }
-            
-            self.dataController.persistentContainer.performBackgroundTask { NSManagedObjectContext in
-                guard let pinInBackgroundContext = NSManagedObjectContext.object(with: pinObjectId) as? Pin else {
-                    preconditionFailure("Unable to fetch Pin in background context.")
-                }
+    
+            let pinContext = self.dataController.viewContext.object(with: pinObjectId) as! Pin
+
+            DispatchQueue.main.async {
                 do {
-                    
+                    try self.albumPersist.setPagingInformation(
+                        currentPage: Int16(data.searchResults.page),
+                        totalPages: Int16(data.searchResults.page),
+                        forAlbum: pinContext.toAlbum!)
+                    try self.albumPersist.addPhotos(
+                        images: data.searchResults.photos,
+                        toPhotoAlbum: pinContext.toAlbum!)
+                    completionHandler(pin, data.searchResults.pages, nil)
+                } catch {
+                    completionHandler(nil, nil, error)
                 }
             }
-
-        }
-    }
     
-    //            let pinContext = self.dataController.viewContext.object(with: pinObjectId) as! Pin
-
-    
-    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
+            
+            func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
      
         
-        let dataTask = apiClient.createGETDataTask(
-            withURL: url,
-            parameters: [:],
-            headers: [:]) { (data, error) in
-             
-            guard let data = data,
-                
+                let dataTask = self.apiClient.createGETDataTask(
+                    withURL: url,
+                    parameters: [:],
+                    headers: [:]) { (data, error) in
+                     
+                        guard let data = data, error == nil else {
+                            completionHandler(nil, error)
+                            return
+                                
+                        }
+                        
+                        guard let image = UIImage(data: data) else {
+                            completionHandler(nil, .unexpectedResource)
+                            return
+                        }
+                        completionHandler(image, nil)
+                    }
+                dataTask.resume()
+            }
+        
         }
     }
 
