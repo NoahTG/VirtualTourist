@@ -2,8 +2,10 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentPage" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="toPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="toAlbum" inverseEntity="Photo"/>
+        <attribute name="totalPages" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="toPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="photoAlbum" inverseEntity="Photo"/>
         <relationship name="toPin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="toAlbum" inverseEntity="Pin"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
@@ -13,7 +15,7 @@
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="imageUrl" optional="YES" attributeType="URI"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="toAlbum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="toPhotos" inverseEntity="Album"/>
+        <relationship name="photoAlbum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="toPhotos" inverseEntity="Album"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -23,8 +25,8 @@
         <relationship name="toAlbum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="toPin" inverseEntity="Album"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-597.3515625" positionY="-1632.0859375" width="128" height="148"/>
-        <element name="Pin" positionX="-1130.5625" positionY="-1610.58203125" width="128" height="118"/>
-        <element name="Album" positionX="-856.2734375" positionY="-1619.00390625" width="128" height="103"/>
+        <element name="Album" positionX="-925.70703125" positionY="-1604.0078125" width="128" height="133"/>
+        <element name="Photo" positionX="-585.6015625" positionY="-1553.9140625" width="128" height="148"/>
+        <element name="Pin" positionX="-1264.26953125" positionY="-1550.41796875" width="128" height="118"/>
     </elements>
 </model>

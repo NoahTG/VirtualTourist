@@ -20,7 +20,7 @@ class FlickrClient: FlickrClientProtocol {
 
     let apiClient: APIClientProtocol
     
-    var AlbumPersist: 
+    var AlbumPersist: AlbumPersistence
     
     static let sharedInstance = FlickrClient()
     
@@ -119,20 +119,6 @@ class FlickrClient: FlickrClientProtocol {
             }
             dataTask.resume()
         }
-
-        static func bboxString(for cordinates: CLLocationCoordinate2D)-> String{
-            let lat = cordinates.latitude
-            let long = cordinates.longitude
-            
-            let minLat = max(lat - Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.0)
-            let maxLat = min(lat + Constants.Flickr.SEARCH_HEIGHT, Constants.Flickr.SEARCH_LAT.1)
-            let minLong = max(long - Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.0)
-            let maxLong = min(long + Constants.Flickr.SEARCH_WIDTH, Constants.Flickr.SEARCH_LONG.1)
-            
-            return "\(minLong),\(minLat),\(maxLong),\(maxLat)"
-        }
-
-
 
 
 }

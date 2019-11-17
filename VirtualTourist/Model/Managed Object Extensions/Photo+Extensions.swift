@@ -36,7 +36,7 @@ struct PhotoPersistence: PhotoPersistenceProtocol {
     photo.title = flickrImage.title
     photo.imageUrl = URL(string: flickrImage.mediumURL)
     photo.id = flickrImage.id
-    photo.toAlbum = album
+    photo.photoAlbum = album
     return photo
 }
     
@@ -44,7 +44,7 @@ struct PhotoPersistence: PhotoPersistenceProtocol {
            
         let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        let predicate = NSPredicate(format: "toAlbum == %@", album)
+        let predicate = NSPredicate(format: "photoAlbum == %@", album)
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = [sortDescriptor]
 
