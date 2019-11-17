@@ -35,8 +35,8 @@ class FlickrClient: FlickrClientProtocol {
     // MARK: Initializers
 
     required init(apiClient: APIClientProtocol, albumPersist: AlbumPersistence, dataController: DataController) {
-         guard let flickrAPIKey = Bundle.main.object(forInfoDictionaryKey: "Flickr api key") as? String else {
-             preconditionFailure("The flickr API key is missing or incorrect.")
+         guard let flickrAPIKey = Bundle.main.object(forInfoDictionaryKey: "Flickr API key") as? String else {
+             preconditionFailure("The Flickr API key is missing or incorrect.")
          }
 
          self.apiClient = apiClient
@@ -112,12 +112,13 @@ class FlickrClient: FlickrClientProtocol {
     
     func requestFlickrImages(forPin pin: Pin, resultsForPage page: Int, completionHandler: @escaping (FlickrResponse?, Error?) -> Void) {
         let queryParameters = [
-            FlickrKeys.APIKey: FlickrDefaultValues.APIKey,
+            FlickrKeys.APIKey: flickrAPIKey,
             FlickrKeys.Format: FlickrDefaultValues.ResponseFormat,
             FlickrKeys.NoJsonCallback: FlickrDefaultValues.NoJsonCallback,
             FlickrKeys.Method: FlickrMethods.PhotoSearchMethod,
             FlickrKeys.Radius: FlickrDefaultValues.ResponseRadius,
             FlickrKeys.ResultsPerPage: FlickrDefaultValues.ResponseResultsPerPage,
+            FlickrKeys.Extra: FlickrDefaultValues.ExtraMediumURL,
             FlickrKeys.Latitude: String(pin.latitude),
             FlickrKeys.Longitude: String(pin.longitude)
         ]

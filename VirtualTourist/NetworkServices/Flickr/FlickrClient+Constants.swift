@@ -25,6 +25,7 @@ extension FlickrClient {
         enum FlickrKeys {
             static let Method = "method"
             static let APIKey = "api_key"
+            static let Extra = "extras"
             static let Latitude = "lat"
             static let Longitude = "lon"
             static let Radius = "radius"
@@ -36,11 +37,12 @@ extension FlickrClient {
         }
         
         enum FlickrDefaultValues {
-            static let APIKey = "a4b05476985821daf2c794037c702ac8"
             static let ResponseRadius = "1" // 1 mile radius
             static let ResponseFormat = "json"
             static let ResponseResultsPerPage = "100"
             static let NoJsonCallback = "1" // 1 means "yes"
+            static let ExtraMediumURL = "url_m"
+
         }
     
 
