@@ -104,9 +104,6 @@ class FlickrClient: FlickrClientProtocol {
         dataTask.resume()
     }
 
-
-
-
     // MARK: Helper Functions
     
     

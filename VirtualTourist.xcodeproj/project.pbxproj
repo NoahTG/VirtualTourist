@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77208AC22381EF5300DC8264 /* PinAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77208AC12381EF5300DC8264 /* PinAnnotations.swift */; };
 		77256B4F237A79DB001771F8 /* FlickrClient+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B4E237A79DB001771F8 /* FlickrClient+Constants.swift */; };
 		77256B52237A7FDD001771F8 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B51237A7FDD001771F8 /* APIClient.swift */; };
 		77256B54237A8AB3001771F8 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77256B53237A8AB3001771F8 /* FlickrClient.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77208AC12381EF5300DC8264 /* PinAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinAnnotations.swift; sourceTree = "<group>"; };
 		77256B4E237A79DB001771F8 /* FlickrClient+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlickrClient+Constants.swift"; sourceTree = "<group>"; };
 		77256B51237A7FDD001771F8 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		77256B53237A8AB3001771F8 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				77826C59236F73130063619D /* VirtualTourist.xcdatamodeld */,
 				77EFA99F236FA208008A214B /* DataController.swift */,
+				77208AC12381EF5300DC8264 /* PinAnnotations.swift */,
 				77EFA99A236FA0D3008A214B /* Managed Object Extensions */,
 			);
 			path = Model;
@@ -240,6 +243,7 @@
 				77EFA999236F7B34008A214B /* Pin+Extensions.swift in Sources */,
 				77826C56236F73130063619D /* AppDelegate.swift in Sources */,
 				77EFA9A92373FE49008A214B /* PhotoAlbumViewController.swift in Sources */,
+				77208AC22381EF5300DC8264 /* PinAnnotations.swift in Sources */,
 				77826C58236F73130063619D /* SceneDelegate.swift in Sources */,
 				77EFA9A52372A3B8008A214B /* AlertExtension.swift in Sources */,
 				77EFA9A0236FA208008A214B /* DataController.swift in Sources */,
