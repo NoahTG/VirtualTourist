@@ -12,6 +12,10 @@ import UIKit
 
 extension UIViewController {
     
+    
+    // Reusable method for presenting a standard Error Alert.
+    /// - Parameter title: Title Bar Message.
+    /// - Parameter message: Detailed body message.
    
     func showAlert(title: String, message: String?){
         let alertVC = UIAlertController(title: title,

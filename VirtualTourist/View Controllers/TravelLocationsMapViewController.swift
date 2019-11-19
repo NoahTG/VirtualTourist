@@ -30,7 +30,11 @@ class TravelLocationsMapViewController: UIViewController {
 
        override func viewDidLoad() {
              super.viewDidLoad()
+        
+        mapView.delegate = self
+        
       }
+    
     
     
     
@@ -47,3 +51,28 @@ class TravelLocationsMapViewController: UIViewController {
 extension
 
 var annotations = [MKPointAnnotation]()
+
+
+
+
+extension MKMapView {
+    /// Set all map interaction on or off
+    /// - Parameter enabled: Whether to enable or disable map interaction.
+    func isInteractionEnabled(_ enabled: Bool) {
+        isScrollEnabled = enabled
+        isZoomEnabled = enabled
+        isPitchEnabled = enabled
+        isRotateEnabled = enabled
+    }
+
+    // Add  pin managed object to the Map View.
+    // - Parameter pin: Pin Managed Object to be added.
+    func addPinAnnotation(pin: Pin){
+        addAnnotation(PinAnnotations(pin: pin))
+    }
+
+    // Clear annotations from the map.
+    func clearAnnotations(){
+        removeAnnotations(annotations)
+    }
+}
