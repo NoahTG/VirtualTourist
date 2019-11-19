@@ -20,7 +20,7 @@ class PhotoAlbumViewController: UIViewController {
     
       var phoo:Photo!
     
-     
+       var pin: Pin!
 
        override func viewDidLoad() {
              super.viewDidLoad()

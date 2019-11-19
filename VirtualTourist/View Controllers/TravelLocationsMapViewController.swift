@@ -42,10 +42,11 @@ class TravelLocationsMapViewController: UIViewController {
 
     
     
+    //MARK:- Class Methods
     
     
     
-    
+
     
     /// Loads persisted pins on the map.
        private func loadPins() {
@@ -68,11 +69,39 @@ class TravelLocationsMapViewController: UIViewController {
        }
     
     
-    
-    
-}
+    //MARK:- IBActions
+    @IBAction func longPressGesture(_ sender: UILongPressGestureRecognizer) {
 
-  // TODO: LOAD PINS
+        if sender.state == .began{
+            // Update Instruction Label
+            instructionLabel.setState(.releaseToAddPin)
+
+        } else if sender.state == .ended {
+            // Get the coordinates of the tapped location on the map.
+            let locationCoordinate = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
+            instructionLabel.setState(.readyForNewPin)
+            createGeocodedAnnotation(from: locationCoordinate)
+        }
+    }
+    
+    
+    //MARK:- Segue
+    
+   func prepareSegue(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let photoAlbumViewController = segue.destination as? PhotoAlbumViewController else { return }
+
+        let newPinAnnotation: PinAnnotations = sender as! PinAnnotations
+
+        photoAlbumViewController.pin = newPinAnnotation.pin
+    }
+    
+    
+    
+    
+    
+    
+//CLOSING BRACKET
+}
 
 
 
