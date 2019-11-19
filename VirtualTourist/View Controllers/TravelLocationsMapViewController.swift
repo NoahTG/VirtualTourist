@@ -35,22 +35,46 @@ class TravelLocationsMapViewController: UIViewController {
         
       }
     
+    override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(animated)
+           loadPins()
+       }
+
     
     
     
     
     
+    
+    
+    /// Loads persisted pins on the map.
+       private func loadPins() {
+           mapView.deleteAnnotations()
+
+           // Make the fetch for pins and add them to the map.
+           let request: NSFetchRequest<Pin> = Pin.fetchRequest()
+           request.sortDescriptors = [
+               NSSortDescriptor(key: "creationDate", ascending: false)
+           ]
+
+           dataController.viewContext.perform {
+               do {
+                   let pins = try self.dataController.viewContext.fetch(request)
+                   self.mapView.addAnnotations(pins.map { pin in PinAnnotations(pin: pin) })
+               } catch {
+                self.showAlert(title: "Error!", message: "Can't load pins!")
+               }
+           }
+       }
     
     
     
     
 }
 
+  // TODO: LOAD PINS
 
 
-extension
-
-var annotations = [MKPointAnnotation]()
 
 
 
@@ -72,7 +96,16 @@ extension MKMapView {
     }
 
     // Clear annotations from the map.
-    func clearAnnotations(){
+    func deleteAnnotations(){
         removeAnnotations(annotations)
     }
+}
+
+
+extension MKMapViewDelegate {
+    
+    
+    
+    
+    
 }
