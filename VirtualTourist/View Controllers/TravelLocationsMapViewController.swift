@@ -44,10 +44,46 @@ class TravelLocationsMapViewController: UIViewController {
     
     //MARK:- Class Methods
     
-    
-    
+    // MARK: Imperatives
 
     
+    ///  Creates a new pin and persists it using a coordinate.
+       /// - Parameter coordinate: the user's  long press gesture creates a new coordinate for a persisted pin
+    private func createNewPin(from coordinate: CLLocationCoordinate2D){
+        
+        // Geocode coordinate to get more data
+        let geocoder = CLGeocoder()
+        
+        // assign coord values
+         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            DispatchQueue.main.async {
+                
+                guard let placemark = placemarks?.first else { return }
+                let locationName = placemark.name ?? "Location TBD"
+                
+                let newPin = self.pinPersistence.createPin(
+                    usingContext: self.dataController.viewContext,
+                    withLocation: locationName,
+                    andCoordinate: coordinate)
+                
+                // assign title to new pin
+                let annotatedPin = PinAnnotations(pin: newPin)
+                annotatedPin.title = locationName
+                
+                // Save new pin
+                try self.dataController.save()
+
+                //add pin to map
+                self.mapView.addAnnotation(annotatedPin)
+                                      
+                }
+        }
+    }
+        
+        
+        
     /// Loads persisted pins on the map.
        private func loadPins() {
            mapView.deleteAnnotations()
