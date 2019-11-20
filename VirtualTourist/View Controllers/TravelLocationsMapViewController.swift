@@ -24,7 +24,7 @@ class TravelLocationsMapViewController: UIViewController {
     var pinPersistence: PinPersistence
     
     var savedLocationKey: String = "persistedMapView"
-    var presentLocation: [String : CLLocationDegrees]
+    //var presentLocation: [String : CLLocationDegrees]
     
    // MARK: Life Cycle
 
@@ -83,7 +83,8 @@ class TravelLocationsMapViewController: UIViewController {
         
     /// Loads persisted pins on the map.
        private func loadPins() {
-           mapView.deleteAnnotations()
+           // delete old pins
+            mapView.deleteAnnotations()
 
            // Make the fetch for pins and add them to the map.
            let request: NSFetchRequest<Pin> = Pin.fetchRequest()
@@ -115,6 +116,7 @@ class TravelLocationsMapViewController: UIViewController {
      
     
     //MARK:- IBActions
+    
     @IBAction func addNewPin(_ sender: UILongPressGestureRecognizer) {
         switch sender.state {
         case .began:

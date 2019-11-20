@@ -18,7 +18,7 @@ class PhotoAlbumViewController: UIViewController {
       // add property to hold data from persistence store
       var dataController:DataController!
     
-      var phoo:Photo!
+      var photo:Photo!
     
        var pin: Pin!
 
@@ -26,6 +26,25 @@ class PhotoAlbumViewController: UIViewController {
              super.viewDidLoad()
       }
     
-    //TODO
-    
+    //END BRACK
+}
+
+extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
+
+    // MARK: Fetched results controller delegate methods
+
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: Any,
+        at indexPath: IndexPath?,
+        for type: NSFetchedResultsChangeType,
+        newIndexPath: IndexPath?
+        ) {
+        switch type {
+        case .delete:
+            collectionView.deleteItems(at: [indexPath!])
+
+        default: break
+        }
+    }
 }
