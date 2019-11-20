@@ -6,6 +6,7 @@
 //  Copyright © 2019 NTG. All rights reserved.
 //
 
+import Foundation
 import MapKit
 import CoreData
 import UIKit
@@ -14,8 +15,9 @@ class TravelLocationsMapViewController: UIViewController {
     
     // MARK:- IBOutlets
     
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet var gestureRecognizer: UILongPressGestureRecognizer!
     
-
     //MARK: Properties
             
       // add property to hold data from persistence store
@@ -70,7 +72,7 @@ class TravelLocationsMapViewController: UIViewController {
             do {
                 try self.dataController.save()
             } catch {
-                self.showAlert(title: "Cannot Save Pin", message: "\(error)")
+                showAlert(title: "Cannot Save Pin", message: "\(error)")
             }
     
             //add pin to map
@@ -79,6 +81,8 @@ class TravelLocationsMapViewController: UIViewController {
             }
     }
         
+    
+    
         
         
     /// Loads persisted pins on the map.
@@ -118,15 +122,18 @@ class TravelLocationsMapViewController: UIViewController {
     //MARK:- IBActions
     
     @IBAction func addNewPin(_ sender: UILongPressGestureRecognizer) {
-        switch sender.state {
-        case .began:
-            let tappedMapCoordinate = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-            createNewPin(for: tappedMapCoordinate)
-        default:
-            break
+       if gestureRecognizer.state == .began {
+            let tap = gestureRecognizer.location(in: self.mapView)
+            let tappedCoordinate = self.mapView.convert(tap, toCoordinateFrom: self.mapView)
+            createNewPin(for: tappedCoordinate)
+                   
+//
+//  let tappedCoordinate = mapView.convert(sender.location(in: mapView),toCoordinateFrom: mapView)
+      
         }
     }
     
+  
 //CLOSING BRACKET
 }
 

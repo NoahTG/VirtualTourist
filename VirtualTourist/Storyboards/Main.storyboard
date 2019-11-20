@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="hn0-se-T2w">
+            <objects>
+                <viewController id="ktu-kd-uRJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QOz-6f-EYR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AjD-Cv-w3c"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nSG-8S-eVu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="130"/>
+        </scene>
+        <!--TravelLocationsMapViewController-->
+        <scene sceneID="nhr-It-TFR">
+            <objects>
+                <viewController title="TravelLocationsMapViewController" id="acI-xE-mni" customClass="TravelLocationsMapViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dLF-Yg-uzE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Wvr-SM-Nq6">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dLF-Yg-uzE" id="Knu-Lq-GcX"/>
+                                    <outletCollection property="gestureRecognizers" destination="ONU-20-Duq" id="peZ-AW-9IC"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="ONU-20-Duq"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="OsS-ZN-Gpb" appends="YES" id="sbR-aa-Wrh"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="gestureRecognizer" destination="OsS-ZN-Gpb" id="9dI-L4-ko0"/>
+                        <outlet property="mapView" destination="Wvr-SM-Nq6" id="8iO-gR-vm3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cj-Om-HEs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="OsS-ZN-Gpb">
+                    <connections>
+                        <action selector="addNewPin:" destination="acI-xE-mni" id="fF1-49-3T8"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="873.91304347826099" y="129.91071428571428"/>
+        </scene>
+    </scenes>
+</document>
