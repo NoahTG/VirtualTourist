@@ -28,11 +28,11 @@ class TravelLocationsMapViewController: UIViewController {
     
    // MARK: Life Cycle
 
-       override func viewDidLoad() {
-             super.viewDidLoad()
-        mapView.delegate = self
-        loadPersistedMapView()
-      }
+   override func viewDidLoad() {
+            super.viewDidLoad()
+            mapView.delegate = self
+            loadPersistedMapView()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
            super.viewDidAppear(animated)
@@ -115,17 +115,13 @@ class TravelLocationsMapViewController: UIViewController {
      
     
     //MARK:- IBActions
-    @IBAction func longPressGesture(_ sender: UILongPressGestureRecognizer) {
-
-        if sender.state == .began{
-            // Update Instruction Label
-            instructionLabel.setState(.releaseToAddPin)
-
-        } else if sender.state == .ended {
-            // Get the coordinates of the tapped location on the map.
-            let locationCoordinate = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-            instructionLabel.setState(.readyForNewPin)
-            createGeocodedAnnotation(from: locationCoordinate)
+    @IBAction func addNewPin(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            let tappedMapCoordinate = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
+            createNewPin(for: tappedMapCoordinate)
+        default:
+            break
         }
     }
     
