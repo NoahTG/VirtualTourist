@@ -12,38 +12,31 @@ import UIKit
 
 class TravelLocationsMapViewController: UIViewController {
     
+    // MARK:- IBOutlets
+    
+    
+
     //MARK: Properties
             
       // add property to hold data from persistence store
     var dataController:DataController!
     
-    // protocol for pulling photos from Flickr and populating album
-    var flickrClient: FlickrClientProtocol
-    
-    // protocol for persisting new pin
-    var pinPersistence: PinPersitenceProtocol
-    
-    // protocol for persisting photo album associated with pin
-    var albumPersistence: AlbumPersistenceProtocol
+    var savedLocationKey: String = "persistedMapView"
+    var presentLocation: [String : CLLocationDegrees]
     
    // MARK: Life Cycle
 
        override func viewDidLoad() {
              super.viewDidLoad()
-        
         mapView.delegate = self
-        
+        loadPersistedMapView()
       }
     
     override func viewDidAppear(_ animated: Bool) {
            super.viewDidAppear(animated)
            loadPins()
        }
-
-    
-    
-    //MARK:- Class Methods
-    
+        
     // MARK: Imperatives
 
     
@@ -105,6 +98,18 @@ class TravelLocationsMapViewController: UIViewController {
        }
     
     
+
+     //MARK:- Segue
+     
+    func prepareSegue(for segue: UIStoryboardSegue, sender: Any?) {
+         guard let photoAlbumViewController = segue.destination as? PhotoAlbumViewController else { return }
+
+         let newPinAnnotation: PinAnnotations = sender as! PinAnnotations
+
+         photoAlbumViewController.pin = newPinAnnotation.pin
+     }
+     
+    
     //MARK:- IBActions
     @IBAction func longPressGesture(_ sender: UILongPressGestureRecognizer) {
 
@@ -120,29 +125,84 @@ class TravelLocationsMapViewController: UIViewController {
         }
     }
     
-    
-    //MARK:- Segue
-    
-   func prepareSegue(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let photoAlbumViewController = segue.destination as? PhotoAlbumViewController else { return }
-
-        let newPinAnnotation: PinAnnotations = sender as! PinAnnotations
-
-        photoAlbumViewController.pin = newPinAnnotation.pin
-    }
-    
-    
-    
-    
-    
-    
 //CLOSING BRACKET
 }
 
+extension TravelLocationsMapViewController: MKMapViewDelegate {
+            
+    func setMapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        let reuseId = "pin"
+
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKMarkerAnnotationView
+
+        // persist the annonation and title it
+        let pinAnnotation = annotation as! PinAnnotations
+        pinAnnotation.title = pinAnnotation.pin.locationName
+
+        if pinView == nil {
+            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = false
+            pinView!.markerTintColor = .green
+
+        } else {
+            pinView!.annotation = annotation
+        }
+
+        return pinView
+    }
+    
+ 
+    // Persist map view location in user defaults
+    func PersistMapView() {
+        let location = [
+            "long":mapView.centerCoordinate.longitude,
+            "lat":mapView.centerCoordinate.latitude,
+            "latDelta":mapView.region.span.latitudeDelta,
+            "longDelta":mapView.region.span.longitudeDelta
+        ]
+        
+        UserDefaults.standard.set(location, forKey: savedLocationKey)
+    }
+    
+    // Persist mapview if changess
+    func mapViewDidChange(_ mapView: MKMapView) {
+        PersistMapView()
+    }
 
 
+    func loadPersistedMapView() {
+         // call up last mapView
+        if let mapRegion = UserDefaults.standard.dictionary(forKey: savedLocationKey) {
 
+             let mapCoords = mapRegion as! [String : CLLocationDegrees]
+             let center = CLLocationCoordinate2D
+                (latitude: locationData["lat"]!,
+                 longitude: locationData["long"]!)
+             let span = MKCoordinateSpan(latitudeDelta: locationData["latDelta"]!, longitudeDelta: locationData["longDelta"]!)
 
+             mapView.setRegion(MKCoordinateRegion(center: center, span: span), animated: true)
+         }
+     }
+     
+    
+    // go to segue
+    func mapViewDidSelect(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else { return }
+
+        let pinAnnotation = annotation as! PinAnnotations
+
+        performSegue(withIdentifier: "showPhotoAlbum", sender: pinAnnotation)
+          
+        // sets delay for de-selected annotation after closing album view controller
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            mapView.deselectAnnotation(view.annotation, animated: false)
+        }
+    }
+  
+        
+}
+    
 
 extension MKMapView {
     /// Set all map interaction on or off
@@ -164,13 +224,4 @@ extension MKMapView {
     func deleteAnnotations(){
         removeAnnotations(annotations)
     }
-}
-
-
-extension MKMapViewDelegate {
-    
-    
-    
-    
-    
 }
