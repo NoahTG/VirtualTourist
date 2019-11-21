@@ -16,25 +16,21 @@ class PhotoAlbumViewController: UIViewController {
     //MARK: Outlets
     
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBOutlet weak var collectionViewCell: UICollectionViewCell!
-    
+        
     
     //MARK: Controller Properties
             
     var dataController:DataController!
-    
+
     /// The fetched results controller in charge of populating the collection view.
     var photosFetchedResultsController: NSFetchedResultsController<Photo>!
-        
     var pin: Pin!
+    var photoAlbumPopulating: PhotoAlbumPopulating!
 
-    /// The reuse identifier of the collection cells.
-    private let reuseIdentifier = "cellPhoto"
-
-
+    
+    //MARK:- View Lifecycle methods
+    
     override func viewDidLoad() {
          super.viewDidLoad()
   }
@@ -73,31 +69,4 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-           return (photosFetchedResultsController.sections ?? []).isEmpty ? 0 : 1
-       }
-   
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return photosFetchedResultsController.sections?[section].numberOfObjects ?? 0
-       }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: reuseIdentifier,
-        for: indexPath) as? CollectionCell else {
-               preconditionFailure("The cell must be of photo type.")}
-        
-        cell.collectionPhoto.setPhoto(photosFetchedResultsController)
-        return cell
-    }
-
-
-
-
-
-
-
-}

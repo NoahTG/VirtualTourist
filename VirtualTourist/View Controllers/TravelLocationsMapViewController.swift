@@ -23,7 +23,7 @@ class TravelLocationsMapViewController: UIViewController {
       // add property to hold data from persistence store
     var dataController:DataController!
     
-    var pinPersistence: PinPersistence
+    var pinPersistence: PinPersistence!
     
     var savedLocationKey: String = "persistedMapView"
     //var presentLocation: [String : CLLocationDegrees]
@@ -80,10 +80,7 @@ class TravelLocationsMapViewController: UIViewController {
                                       
             }
     }
-        
-    
-    
-        
+            
         
     /// Loads persisted pins on the map.
        private func loadPins() {

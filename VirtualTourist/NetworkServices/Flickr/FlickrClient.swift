@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 
 class FlickrClient: FlickrClientProtocol {
+  
     
     // MARK: Properties
     let apiClient: APIClientProtocol
@@ -158,5 +159,5 @@ protocol FlickrClientProtocol {
     /// - Parameters:
     ///        - url: Image Url.
     ///        - completionHandler: function that will be called following the completion of this method.
-    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void )
+    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, String?, URLSessionTask.TaskHasError?) -> Void )
 }

@@ -14,12 +14,10 @@ class PhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var photoLoadingActivityIndicator: UIActivityIndicatorView!
-    
-// MARK:- Class Properties
+    // MARK:- Class Properties
     public static let reuseId = "photoCell"
     var photo: Photo!
     var flickrClient: FlickrClient!
-    var pin: Pin!
 
     // MARK:- Class Methods
     
@@ -55,10 +53,9 @@ class PhotoCell: UICollectionViewCell {
                     if url != weakSelf.photo.imageUrl?.absoluteString {
                         return
                     }
-
                     weakSelf.photo.imageData = imageData.jpegData(compressionQuality: 1)
                     weakSelf.imageView.image = imageData
-                    weakSelf.activityIndicator.stopAnimating()
+                    weakSelf.photoLoadingActivityIndicator.stopAnimating()
                     }
             }
         }

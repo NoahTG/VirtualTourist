@@ -119,8 +119,8 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="108" height="86"/>
                                         <connections>
-                                            <outlet property="actviityIndicator" destination="Cch-xq-oj9" id="gHs-eZ-xji"/>
                                             <outlet property="imageView" destination="c8S-6x-PLS" id="3fi-0s-54p"/>
+                                            <outlet property="photoLoadingActivityIndicator" destination="Cch-xq-oj9" id="AdB-8K-Xuf"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
