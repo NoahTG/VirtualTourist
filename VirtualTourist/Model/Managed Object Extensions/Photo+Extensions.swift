@@ -8,9 +8,17 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 extension Photo {
+    
+    func set(image : UIImage){
+           self.imageData = image.pngData()
+       }
+       func get() -> UIImage? {
+           return (imageData == nil) ? nil : UIImage(data:imageData!)
+       }
     
     // MARK: Life cycle
 
