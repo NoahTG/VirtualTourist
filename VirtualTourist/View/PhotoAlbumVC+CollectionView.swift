@@ -33,7 +33,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
              do {
                  try self.dataController.viewContext.save()
              } catch {
-                 print("Cannot save images from flickr")
+                 print("Cannot save image from flickr")
              }
          }
 

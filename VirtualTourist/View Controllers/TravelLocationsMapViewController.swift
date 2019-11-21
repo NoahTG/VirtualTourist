@@ -23,6 +23,8 @@ class TravelLocationsMapViewController: UIViewController {
       // add property to hold data from persistence store
     var dataController:DataController!
     
+    
+    
     var pinPersistence: PinPersistence!
     
     var savedLocationKey: String = "persistedMapView"
@@ -72,7 +74,7 @@ class TravelLocationsMapViewController: UIViewController {
             do {
                 try self.dataController.save()
             } catch {
-                showAlert(title: "Cannot Save Pin", message: "\(error)")
+                self.showAlert(title: "Cannot save pin", message: error.localizedDescription)
             }
     
             //add pin to map
@@ -98,7 +100,7 @@ class TravelLocationsMapViewController: UIViewController {
                    let pins = try self.dataController.viewContext.fetch(request)
                    self.mapView.addAnnotations(pins.map { pin in PinAnnotations(pin: pin) })
                } catch {
-                self.showAlert(title: "Error!", message: "Can't load pins!")
+                self.showAlert(title: "Cannot load pins", message: error.localizedDescription)
                }
            }
        }
@@ -123,8 +125,6 @@ class TravelLocationsMapViewController: UIViewController {
             let tap = gestureRecognizer.location(in: self.mapView)
             let tappedCoordinate = self.mapView.convert(tap, toCoordinateFrom: self.mapView)
             createNewPin(for: tappedCoordinate)
-                   
-//
 //  let tappedCoordinate = mapView.convert(sender.location(in: mapView),toCoordinateFrom: mapView)
       
         }

@@ -129,9 +129,23 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem systemItem="trash" id="gd8-Zp-Vg7">
+                                        <connections>
+                                            <action selector="deleteButtonPressed:" destination="1Ga-0v-wEj" id="ath-xM-2Ja"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="L8n-Nd-FPx"/>
-                                    <barButtonItem title="New Collection" landscapeImage="I" id="pqK-wg-I9e"/>
+                                    <barButtonItem title="New Collection Button" landscapeImage="I" id="pqK-wg-I9e">
+                                        <connections>
+                                            <action selector="newCollectionButtonPressed:" destination="1Ga-0v-wEj" id="Pa8-JY-Xlm"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="sas-FX-gYi"/>
+                                    <barButtonItem systemItem="done" id="hO9-at-1f4">
+                                        <connections>
+                                            <action selector="doneButtonPressed:" destination="1Ga-0v-wEj" id="d4W-65-9Ap"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -147,7 +161,11 @@
                     <navigationItem key="navigationItem" id="9ag-QZ-cUX"/>
                     <connections>
                         <outlet property="collectionView" destination="f8E-g2-7mE" id="cag-Qp-BVz"/>
+                        <outlet property="deleteButton" destination="gd8-Zp-Vg7" id="58i-gR-9sQ"/>
+                        <outlet property="doneButton" destination="hO9-at-1f4" id="z2a-Qd-gFD"/>
                         <outlet property="mapView" destination="p09-IN-o0x" id="41q-UM-8DK"/>
+                        <outlet property="navItem" destination="9ag-QZ-cUX" id="r0t-q0-cag"/>
+                        <outlet property="newCollection" destination="pqK-wg-I9e" id="PjX-fn-PgH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3V-UN-c1k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
