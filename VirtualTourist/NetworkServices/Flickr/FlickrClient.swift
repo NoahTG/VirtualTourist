@@ -81,7 +81,7 @@ class FlickrClient: FlickrClientProtocol {
     }
     
             
-    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, URLSessionTask.TaskHasError?) -> Void) {
+    func downloadPhotoFromFlickr(fromUrl url: URL, completionHandler: @escaping (UIImage?, String?, URLSessionTask.TaskHasError?) -> Void) {
 
 
         let dataTask = self.apiClient.createGETDataTask(
@@ -90,16 +90,16 @@ class FlickrClient: FlickrClientProtocol {
             headers: [:]) { (data, error) in
              
                 guard let data = data, error == nil else {
-                    completionHandler(nil, error)
+                    completionHandler(nil, nil, error)
                     return
                         
                 }
                 
                 guard let image = UIImage(data: data) else {
-                    completionHandler(nil, .unexpectedResource)
+                    completionHandler(nil, nil, .unexpectedResource)
                     return
                 }
-                completionHandler(image, nil)
+                completionHandler(image, nil, nil)
             }
         dataTask.resume()
     }

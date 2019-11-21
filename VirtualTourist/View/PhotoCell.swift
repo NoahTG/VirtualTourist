@@ -13,57 +13,67 @@ class PhotoCell: UICollectionViewCell {
     
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var photoLoadingActivityIndicator: UIActivityIndicatorView!
     
 // MARK:- Class Properties
     public static let reuseId = "photoCell"
     var photo: Photo!
+    var flickrClient: FlickrClient!
+    var pin: Pin!
 
     // MARK:- Class Methods
-    /// Set up the cell's imageView by downloading or reusing photos that have already been downloaded.
+    
+    // Set up  view by downloading or reusing photos that are downloaded.
     func setUpPhotoCell() {
         if #available(iOS 13.0, *) {
-            activityIndicator.style = .large
+            photoLoadingActivityIndicator.style = .large
         } else {
-            activityIndicator.style = .whiteLarge
+            photoLoadingActivityIndicator.style = .whiteLarge
         }
 
-        activityIndicator.startAnimating()
+        photoLoadingActivityIndicator.startAnimating()
 
         // Populate cell imageview
         if let data = photo.imageData {
             // Photo data already exists in photo object. But has not yet been converted to a UIImage
             let image = UIImage(data: data)
             imageView.image = image
-            activityIndicator.stopAnimating()
+            photoLoadingActivityIndicator.stopAnimating()
         } else {
             // No photo currently downloaded. Request image from flickr
-            activityIndicator.startAnimating()
-            FlickrClient.shared.downloadImage(fromUrl: photo.url!) { [weak self] (imageData, url, error) in
+            photoLoadingActivityIndicator.startAnimating()
+                        
+            flickrClient.downloadPhotoFromFlickr(fromUrl: photo.imageUrl!){ [weak self] (imageData, url, error)
+                in
                 guard let weakSelf = self else { return }
-
-                guard let imageData = imageData else { preconditionFailure("Unable to download image: \(error.debugDescription)") }
+                            
+                guard let imageData = imageData else {
+                    preconditionFailure("Failed to download image: \(error.debugDescription)")
+                }
 
                 DispatchQueue.main.async {
-                    if url != weakSelf.photo.url?.absoluteString {
+                    if url != weakSelf.photo.imageUrl?.absoluteString {
                         return
                     }
 
                     weakSelf.photo.imageData = imageData.jpegData(compressionQuality: 1)
                     weakSelf.imageView.image = imageData
                     weakSelf.activityIndicator.stopAnimating()
-                }
+                    }
             }
         }
     }
+    
+    // MARK: Life cycle
 
     override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = UIImage()
-        self.activityIndicator.startAnimating()
+        self.photoLoadingActivityIndicator.startAnimating()
     }
 }
 
     
     
     
-}
+
