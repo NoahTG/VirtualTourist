@@ -57,7 +57,7 @@
                     <connections>
                         <outlet property="gestureRecognizer" destination="OsS-ZN-Gpb" id="9dI-L4-ko0"/>
                         <outlet property="mapView" destination="Wvr-SM-Nq6" id="8iO-gR-vm3"/>
-                        <segue destination="1Ga-0v-wEj" kind="show" id="Tv0-8N-Nkb"/>
+                        <segue destination="1Ga-0v-wEj" kind="presentation" identifier="displayPhotoAlbum" id="Tv0-8N-Nkb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2cj-Om-HEs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -74,11 +74,11 @@
             <objects>
                 <viewController id="1Ga-0v-wEj" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nef-bK-cN9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="p09-IN-o0x">
-                                <rect key="frame" x="0.0" y="44" width="375" height="166"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f8E-g2-7mE">
                                 <rect key="frame" x="-3" y="208" width="375" height="459"/>
@@ -91,7 +91,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eBG-MW-Qa6" customClass="PhotoCell" customModule="VirtualTourist" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="eBG-MW-Qa6" customClass="PhotoCell" customModule="VirtualTourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="108" height="86"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Y3l-03-QPZ">
@@ -126,7 +126,7 @@
                                 </cells>
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UAe-4v-ABY">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="603" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem systemItem="trash" id="gd8-Zp-Vg7">

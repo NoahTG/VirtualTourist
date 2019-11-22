@@ -182,7 +182,7 @@ class PhotoAlbumViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    //END BRACK
+    //END of class
 }
 
 extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {

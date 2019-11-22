@@ -58,7 +58,6 @@
 		77EFA998236F7B34008A214B /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		77EFA99D236FA1F3008A214B /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
 		77EFA99F236FA208008A214B /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		77EFA9A1236FACC3008A214B /* TextKeyConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TextKeyConfig.xcconfig; sourceTree = "<group>"; };
 		77EFA9A22371474F008A214B /* virtual-tourist-app-icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "virtual-tourist-app-icons"; sourceTree = "<group>"; };
 		77EFA9A42372A3B8008A214B /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		77EFA9A62372A85F008A214B /* Photo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Extensions.swift"; sourceTree = "<group>"; };
@@ -126,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				77826C55236F73130063619D /* AppDelegate.swift */,
-				77EFA9A1236FACC3008A214B /* TextKeyConfig.xcconfig */,
 				77EFA99B236FA12B008A214B /* Assets */,
 				77826C66236F731A0063619D /* Info.plist */,
 				77E32E2F237BD870001F26F2 /* NetworkServices */,
